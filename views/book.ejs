@@ -1,0 +1,157 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center mt-3 mb-3"><%= title %></h1>
+            
+            <% if(action == 'add') { %>
+
+            <div class="card">
+                <div class="card-header">book data </div>
+                <div class="card-body">
+                    <form method="POST" action="/book/add_book">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>book_id</label>
+                                    <input type="number" name="book_id" id="book_id" class="form-control"  required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>kind</label>
+                                    <input type="text" name="kind" id="kind" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>title</label>
+                                    <input type="text" name="title" id="title" class="form-control" required />
+                                </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>author</label>
+                                    <input type="text" name="author" id="author" class="form-control" required />
+                                </div>
+                            </div>
+                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>price</label>
+                                    <input type="number" name="price" id="price" class="form-control" required />
+                                </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>avalibility</label> <br>
+                                    <input type="radio" id="true" name="avalibility" value="1"> <label for="true">avaliable</label><br>
+                                    <input type="radio" id="false" name="avalibility" value="0"> <label for="false">unavaliable</label><br>
+                                </div>
+                            </div>
+                            
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" name="submit_button" class="btn btn-primary" value="Add" required />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+           
+
+
+            <% } else { %>
+                <% if(message.length > 0) { %>
+                <div class="alert alert-success">
+                    <%= message %>
+                </div>
+                <% } %>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">book data</div>
+                        <div class="col">
+                            <a href="/book/add" class="btn btn-success btn-sm float-end">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>book_id</td>
+                                <td>kind</td>
+                                <td>title</td>
+                                <th>author</th>
+                                 <th>price</th>
+                              <th>avalibility</th>
+                                <th>action</th>
+                            </tr>
+                            <%
+                            if(book.length > 0)
+                            {
+                                book.forEach(function(data){
+                            %>
+                            <tr>
+                                <td>
+                                    <%= data.book_id %>
+                                  </td>
+                                  <td>
+                                    <%= data.kind %>
+                                  </td>
+                                  <td>
+                                    <%= data.title %>
+                                  </td>
+                                  <td>
+                                    <%= data.author %>
+                                  </td>
+                                  <td>
+                                    <%= data.price %>
+                                  </td>
+                                  <td>
+                                    <%= data.avalibility %>
+                                  </td>
+                                <td>
+                                    <a href="/book/delete/<%= data.book_id %>" class="btn btn-primary btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                            <%
+                                });
+                            }
+                            else
+                            {
+                            %>
+                            <tr>
+                                <td colspan="5">No Data Found</td>
+                            </tr>
+                            <%
+                            }
+                            %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+
+        </div> 
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>

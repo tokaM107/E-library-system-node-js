@@ -1,0 +1,132 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center mt-3 mb-3"><%= title %></h1>
+            
+            <% if(action == 'add') { %>
+
+            <div class="card">
+                <div class="card-header">department data </div>
+                <div class="card-body">
+                    <form method="POST" action="/dep/add_dep">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>dep_num</label>
+                                    <input type="number" name="dep_num" id="dep_num" class="form-control"  required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>dep_name</label>
+                                    <input type="text" name="dep_name" id="dep_name" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>emp_id</label>
+                                    <input type="number" name="emp_id" id="emp_id" class="form-control" required />
+                                </div>
+                            </div>
+                            
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" name="submit_button" class="btn btn-primary" value="Add" required />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+           
+
+
+            <% } else { %>
+                <% if(message.length > 0) { %>
+                <div class="alert alert-success">
+                    <%= message %>
+                </div>
+                <% } %>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">department data</div>
+                        <div class="col">
+                            <a href="/dep/add" class="btn btn-success btn-sm float-end">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>dep_num</td>
+                                <td>dep_name</td>
+                                <td>emp_id</td>
+                                <td>d_name</td>
+                                 <td>d_num</td>
+                                <th>action</th>
+                            </tr>
+                            <%
+                            if(dep.length > 0)
+                            {
+                                dep.forEach(function(data){
+                            %>
+                            <tr>
+                                <td>
+                                    <%= data.dep_num %>
+                                </td>
+                                <td>
+                                    <%= data.dep_name %>
+                                </td>
+                                <td>
+                                    <%= data.emp_id %>
+                                </td>
+                                <td>
+                                    <%= data.d_name %>
+                                </td>
+                                <td>
+                                    <%= data.d_num %>
+                                </td>
+                                <td>
+                                    <a href="/dep/delete/<%= data.dep_num %>" class="btn btn-primary btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                            <%
+                                });
+                            }
+                            else
+                            {
+                            %>
+                            <tr>
+                                <td colspan="5">No Data Found</td>
+                            </tr>
+                            <%
+                            }
+                            %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+
+        </div> 
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>
